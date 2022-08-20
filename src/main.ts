@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { Client, Intents } from 'discord.js';
+import { RatingColorConverter } from './utils/rating-color-converter';
 
 require('dotenv').config();
 
@@ -33,8 +34,13 @@ client.on('messageCreate', async (message) => {
         `${process.env.API_ROUTE}/users/${username}`,
       );
 
+      const ratingColorConverter = new RatingColorConverter();
+      const wn8Color: any = await ratingColorConverter.getColorOfWN8(
+        result.rating.wn8,
+      );
+
       const embedUser = {
-        color: result.clan ? result.clan.color : 0x0099ff,
+        color: result.rating.wn8 ? wn8Color : 0x0099ff,
         title: `${result.user.username} 레이팅`,
         url: `https://tanks.gg/asia/${result.user.username}`,
         author: {
