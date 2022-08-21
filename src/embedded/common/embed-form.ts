@@ -1,14 +1,14 @@
 export class EmbedForm {
-  color: string;
-  title: string;
-  url: string;
-  author: {
+  private color: string;
+  private title: string;
+  private url: string;
+  private author: {
     name: string;
     icon_url: string;
     url?: string;
   };
-  description: string;
-  thumbnail: {
+  private description: string;
+  private thumbnail: {
     url: string;
   };
 
