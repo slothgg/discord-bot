@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { Client, Intents } from 'discord.js';
-import { RatingColorConverter } from './utils/rating-color-converter';
+import { RatingColorConverter } from './utils/converter/rating-color.converter';
 
 require('dotenv').config();
 

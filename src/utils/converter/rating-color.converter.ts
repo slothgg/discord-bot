@@ -1,4 +1,4 @@
-import { RatingColor } from './color.type';
+import { RatingColor } from '../color.type';
 
 export class RatingColorConverter {
   private colors: RatingColor;
@@ -60,26 +60,4 @@ export class RatingColorConverter {
       return this.colors.superUnicum;
     }
   }
-
-  // if (wnRating < 300) {
-  //   return this.colors.veryBad;
-  // } else if (wnRating < 449) {
-  //   return this.colors.bad;
-  // } else if (wnRating < 649) {
-  //   return this.colors.belowAverage;
-  // } else if (wnRating < 899) {
-  //   return this.colors.average;
-  // } else if (wnRating < 1199) {
-  //   return this.colors.aboveAverage;
-  // } else if (wnRating < 1599) {
-  //   return this.colors.good;
-  // } else if (wnRating < 1999) {
-  //   return this.colors.veryGood;
-  // } else if (wnRating < 2449) {
-  //   return this.colors.great;
-  // } else if (wnRating < 2899) {
-  //   return this.colors.unicum;
-  // } else if (wnRating > 2900) {
-  //   return this.colors.superUnicum;
-  // }
 }
