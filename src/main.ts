@@ -56,6 +56,11 @@ client.on('messageCreate', async (message) => {
             inline: true,
           },
           {
+            name: '판 수',
+            value: result.rating.battleCount.toString(),
+            inline: true,
+          },
+          {
             name: '승률',
             value: result.rating.winRate,
             inline: true,

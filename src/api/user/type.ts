@@ -26,11 +26,12 @@ export interface GetUserResponse {
     emblemUrl: string;
   };
   rating: {
-    id: 75;
+    id: number;
     createdAt: string;
     updatedAt: string;
     userId: number;
     wn8: string;
     winRate: string;
+    battleCount: number;
   };
 }
