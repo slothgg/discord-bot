@@ -1,5 +1,5 @@
-import axios from 'axios';
 import { Client, Intents } from 'discord.js';
+import { getUserByName } from './api/user';
 import { RatingColorConverter } from './utils/converter/rating-color.converter';
 
 require('dotenv').config();
@@ -30,9 +30,7 @@ client.on('messageCreate', async (message) => {
     if (valid !== null) {
       message.reply('입력가능한 닉네임이 아닙니다.');
     } else {
-      const { data: result } = await axios.get(
-        `${process.env.API_ROUTE}/users/${username}`,
-      );
+      const result = await getUserByName(username);
 
       const ratingColorConverter = new RatingColorConverter();
       const wn8Color: any = await ratingColorConverter.getColorOfWN8(
@@ -41,7 +39,7 @@ client.on('messageCreate', async (message) => {
 
       const embedUser = {
         color: result.rating.wn8 ? wn8Color : 0x0099ff,
-        title: `${result.user.username} 레이팅`,
+        title: `${result.user.username} [${result.clan.clanTag}] 레이팅`,
         url: `https://tanks.gg/asia/${result.user.username}`,
         author: {
           name: 'Genimre-레이팅',
