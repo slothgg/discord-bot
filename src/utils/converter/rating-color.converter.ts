@@ -1,4 +1,4 @@
-import { RatingColor } from '../color.type';
+import { RatingColor } from './color.type';
 
 export class RatingColorConverter {
   private colors: RatingColor;
