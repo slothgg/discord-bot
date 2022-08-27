@@ -60,4 +60,44 @@ export class RatingColorConverter {
       return this.colors.superUnicum;
     }
   }
+
+  async getColorOfWinRate(winRate: string): Promise<string> {
+    const winRating = +winRate;
+
+    if (winRating < 46) {
+      return this.colors.veryBad;
+    }
+
+    if (winRating > 46 && winRating < 47) {
+      return this.colors.bad;
+    }
+
+    if (winRating > 47 && winRating < 48) {
+      return this.colors.belowAverage;
+    }
+
+    if (winRating > 48 && winRating < 49) {
+      return this.colors.average;
+    }
+
+    if (winRating > 49 && winRating < 51) {
+      return this.colors.aboveAverage;
+    }
+
+    if (winRating > 51 && winRating < 53) {
+      return this.colors.good;
+    }
+    if (winRating > 53 && winRating < 55) {
+      return this.colors.veryGood;
+    }
+    if (winRating > 55 && winRating < 59) {
+      return this.colors.great;
+    }
+    if (winRating > 59 && winRating < 64) {
+      return this.colors.unicum;
+    }
+    if (winRating > 65) {
+      return this.colors.superUnicum;
+    }
+  }
 }
