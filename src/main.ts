@@ -34,11 +34,11 @@ client.on('messageCreate', async (message) => {
 
       const ratingColorConverter = new RatingColorConverter();
       const wn8Color: any = await ratingColorConverter.getColorOfWN8(
-        result.rating.wn8,
+        result.rating.rating.wn8,
       );
 
       const embedUser = {
-        color: result.rating.wn8 ? wn8Color : 0x0099ff,
+        color: result.rating.rating.wn8 ? wn8Color : 0x0099ff,
         title: `${result.user.username} [${result.clan.clanTag}] 레이팅`,
         url: `https://tanks.gg/asia/${result.user.username}`,
         author: {
@@ -52,17 +52,20 @@ client.on('messageCreate', async (message) => {
         fields: [
           {
             name: 'WN8',
-            value: result.rating.wn8,
+            value: `${result.rating.rating.wn8}
+            ( ${result.rating.compareWN8} )`,
             inline: true,
           },
           {
             name: '판 수',
-            value: result.rating.battleCount.toString(),
+            value: `${result.rating.rating.battleCount.toString()}
+             ( ${result.rating.compareBattleCount} )`,
             inline: true,
           },
           {
             name: '승률',
-            value: result.rating.winRate,
+            value: `${result.rating.rating.winRate}
+            ( ${result.rating.compareWinRate} )`,
             inline: true,
           },
           {
