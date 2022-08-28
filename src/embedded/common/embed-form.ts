@@ -27,4 +27,36 @@ export class EmbedForm {
   getTitle() {
     return this.title;
   }
+
+  setUrl(url: string) {
+    this.url = url;
+  }
+
+  getUrl() {
+    return this.url;
+  }
+
+  setAuthor(author: { name: string; icon_url: string; url?: string }) {
+    this.author = author;
+  }
+
+  getAuthor() {
+    return this.author;
+  }
+
+  setDescription(description: string) {
+    this.description = description;
+  }
+
+  getDescription() {
+    return this.description;
+  }
+
+  setThumbnail(thumbnail: { url: string }) {
+    this.thumbnail = thumbnail;
+  }
+
+  getThumbnail() {
+    return this.thumbnail;
+  }
 }
