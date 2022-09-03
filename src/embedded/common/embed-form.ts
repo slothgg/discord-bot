@@ -11,6 +11,11 @@ export class EmbedForm {
   private thumbnail: {
     url: string;
   };
+  private fields: {
+    name: string;
+    value: string;
+    inline?: boolean;
+  }[];
 
   setColor(color: string) {
     this.color = color;
@@ -58,5 +63,13 @@ export class EmbedForm {
 
   getThumbnail() {
     return this.thumbnail;
+  }
+
+  setFields(field: { name: string; value: string; inline: boolean }) {
+    this.fields.push(field);
+  }
+
+  getFields() {
+    return this.fields;
   }
 }
