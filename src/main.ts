@@ -1,5 +1,6 @@
 import { Client, Intents } from 'discord.js';
 import { getUserByName } from './api/user';
+import { EmbedUser } from './embedded/user/embed-user';
 import { RatingColorConverter } from './utils/converter/rating-color.converter';
 
 require('dotenv').config();
@@ -37,49 +38,54 @@ client.on('messageCreate', async (message) => {
         result.rating.rating.wn8,
       );
 
-      const embedUser = {
-        color: result.rating.rating.wn8 ? wn8Color : 0x0099ff,
-        title: `${result.user.username} [${result.clan.clanTag}] 레이팅`,
-        url: `https://tanks.gg/asia/${result.user.username}`,
-        author: {
-          name: 'Genimre-레이팅',
-          icon_url: 'https://i.imgur.com/FHzy32w.png',
+      const embedUser = new EmbedUser();
+
+      embedUser.setColor(result.rating.rating.wn8 ? wn8Color : 0x0099ff);
+      embedUser.setTitle(
+        `${result.user.username} [${result.clan.clanTag}] 레이팅`,
+      );
+      embedUser.setUrl(`https://tanks.gg/asia/${result.user.username}`);
+      embedUser.setAuthor({
+        name: 'Genimre-레이팅',
+        icon_url: 'https://i.imgur.com/FHzy32w.png',
+      });
+      embedUser.setDescription(
+        `≫ ${result.user.username} [${result.clan.clanTag}] ≪ 유저의 레이팅입니다.`,
+      );
+      embedUser.setThumbnail({
+        url: `${result.clan.emblemUrl}`,
+      });
+      embedUser.setFields([
+        {
+          name: 'WN8',
+          value: `${result.rating.rating.wn8}
+          ( ${result.rating.compareWN8} )`,
+          inline: true,
         },
-        description: `≫ ${result.user.username} [${result.clan.clanTag}] ≪ 유저의 레이팅입니다.`,
-        thumbnail: {
-          url: `${result.clan.emblemUrl}`,
+        {
+          name: '판 수',
+          value: `${result.rating.rating.battleCount.toString()}
+           ( ${result.rating.compareBattleCount} )`,
+          inline: true,
         },
-        fields: [
-          {
-            name: 'WN8',
-            value: `${result.rating.rating.wn8}
-            ( ${result.rating.compareWN8} )`,
-            inline: true,
-          },
-          {
-            name: '판 수',
-            value: `${result.rating.rating.battleCount.toString()}
-             ( ${result.rating.compareBattleCount} )`,
-            inline: true,
-          },
-          {
-            name: '승률',
-            value: `${result.rating.rating.winRate}
-            ( ${result.rating.compareWinRate} )`,
-            inline: true,
-          },
-          {
-            name: `소속 클랜
-  ${result.clan.clanName} [${result.clan.clanTag}]`,
-            value: result.clan.description,
-          },
-        ],
-        timestamp: new Date(),
-        footer: {
-          text: 'Genimre-레이팅',
-          icon_url: 'https://i.imgur.com/FHzy32w.png',
+        {
+          name: '승률',
+          value: `${result.rating.rating.winRate}
+          ( ${result.rating.compareWinRate} )`,
+          inline: true,
         },
-      };
+        {
+          name: `소속 클랜
+${result.clan.clanName} [${result.clan.clanTag}]`,
+          value: result.clan.description,
+        },
+      ]);
+      embedUser.setTimeStamp(new Date());
+      embedUser.setFooter({
+        text: 'Genimre-레이팅',
+        icon_url: 'https://i.imgur.com/FHzy32w.png',
+      });
+      //@ts-ignore
       message.reply({ embeds: [embedUser] });
     }
   }
