@@ -16,6 +16,11 @@ export class EmbedForm {
     value: string;
     inline?: boolean;
   }[];
+  private timestamp: Date;
+  private footer: {
+    text: string;
+    icon_url: string;
+  };
 
   setColor(color: string) {
     this.color = color;
