@@ -70,8 +70,8 @@ export class EmbedForm {
     return this.thumbnail;
   }
 
-  setFields(field: { name: string; value: string; inline: boolean }) {
-    this.fields.push(field);
+  setFields(fields: { name: string; value: string; inline?: boolean }[]) {
+    this.fields = fields;
   }
 
   getFields() {
