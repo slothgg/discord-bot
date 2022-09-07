@@ -77,4 +77,20 @@ export class EmbedForm {
   getFields() {
     return this.fields;
   }
+
+  setTimeStamp(timestamp: Date) {
+    this.timestamp = timestamp;
+  }
+
+  getTimeStamp() {
+    return this.timestamp;
+  }
+
+  setFooter(footer: { text: string; icon_url: string }) {
+    this.footer = footer;
+  }
+
+  getFooter() {
+    return this.footer;
+  }
 }
