@@ -21,73 +21,75 @@ client.once('ready', () => {
 
 client.on('messageCreate', async (message) => {
   const content = message.content;
-  if (content.substring(0, 4) === '!레이팅') {
-    const username = content.substring(5, content.length).trim();
+  const target = content.split(' ');
+  switch (target[0]) {
+    case '!레이팅':
+      const username = content.substring(5, content.length).trim();
 
-    const valid = username.match(
-      /[\uac00-\ud7af]|[\u1100-\u11ff]|[\u3130-\u318f]|[\ua960-\ua97f]|[\ud7b0-\ud7ff]/g,
-    );
-
-    if (valid !== null) {
-      message.reply('입력가능한 닉네임이 아닙니다.');
-    } else {
-      const result = await getUserByName(username);
-
-      const ratingColorConverter = new RatingColorConverter();
-      const wn8Color: any = await ratingColorConverter.getColorOfWN8(
-        result.rating.rating.wn8,
+      const valid = username.match(
+        /[\uac00-\ud7af]|[\u1100-\u11ff]|[\u3130-\u318f]|[\ua960-\ua97f]|[\ud7b0-\ud7ff]/g,
       );
 
-      const embedUser = new EmbedUser();
+      if (valid !== null) {
+        message.reply('입력가능한 닉네임이 아닙니다.');
+      } else {
+        const result = await getUserByName(username);
 
-      embedUser.setColor(result.rating.rating.wn8 ? wn8Color : 0x0099ff);
-      embedUser.setTitle(
-        `${result.user.username} [${result.clan.clanTag}] 레이팅`,
-      );
-      embedUser.setUrl(`https://tanks.gg/asia/${result.user.username}`);
-      embedUser.setAuthor({
-        name: 'Genimre-레이팅',
-        icon_url: 'https://i.imgur.com/FHzy32w.png',
-      });
-      embedUser.setDescription(
-        `≫ ${result.user.username} [${result.clan.clanTag}] ≪ 유저의 레이팅입니다.`,
-      );
-      embedUser.setThumbnail({
-        url: `${result.clan.emblemUrl}`,
-      });
-      embedUser.setFields([
-        {
-          name: 'WN8',
-          value: `${result.rating.rating.wn8}
-          ( ${result.rating.compareWN8} )`,
-          inline: true,
-        },
-        {
-          name: '판 수',
-          value: `${result.rating.rating.battleCount.toString()}
-           ( ${result.rating.compareBattleCount} )`,
-          inline: true,
-        },
-        {
-          name: '승률',
-          value: `${result.rating.rating.winRate}
-          ( ${result.rating.compareWinRate} )`,
-          inline: true,
-        },
-        {
-          name: `소속 클랜
-${result.clan.clanName} [${result.clan.clanTag}]`,
-          value: result.clan.description,
-        },
-      ]);
-      embedUser.setTimeStamp(new Date());
-      embedUser.setFooter({
-        text: 'Genimre-레이팅',
-        icon_url: 'https://i.imgur.com/FHzy32w.png',
-      });
-      //@ts-ignore
-      message.reply({ embeds: [embedUser] });
-    }
+        const ratingColorConverter = new RatingColorConverter();
+        const wn8Color: any = await ratingColorConverter.getColorOfWN8(
+          result.rating.rating.wn8,
+        );
+
+        const embedUser = new EmbedUser();
+
+        embedUser.setColor(result.rating.rating.wn8 ? wn8Color : 0x0099ff);
+        embedUser.setTitle(
+          `${result.user.username} [${result.clan.clanTag}] 레이팅`,
+        );
+        embedUser.setUrl(`https://tanks.gg/asia/${result.user.username}`);
+        embedUser.setAuthor({
+          name: 'Genimre-레이팅',
+          icon_url: 'https://i.imgur.com/FHzy32w.png',
+        });
+        embedUser.setDescription(
+          `≫ ${result.user.username} [${result.clan.clanTag}] ≪ 유저의 레이팅입니다.`,
+        );
+        embedUser.setThumbnail({
+          url: `${result.clan.emblemUrl}`,
+        });
+        embedUser.setFields([
+          {
+            name: 'WN8',
+            value: `${result.rating.rating.wn8}
+            ( ${result.rating.compareWN8} )`,
+            inline: true,
+          },
+          {
+            name: '판 수',
+            value: `${result.rating.rating.battleCount.toString()}
+             ( ${result.rating.compareBattleCount} )`,
+            inline: true,
+          },
+          {
+            name: '승률',
+            value: `${result.rating.rating.winRate}
+            ( ${result.rating.compareWinRate} )`,
+            inline: true,
+          },
+          {
+            name: `소속 클랜
+  ${result.clan.clanName} [${result.clan.clanTag}]`,
+            value: result.clan.description,
+          },
+        ]);
+        embedUser.setTimeStamp(new Date());
+        embedUser.setFooter({
+          text: 'Genimre-레이팅',
+          icon_url: 'https://i.imgur.com/FHzy32w.png',
+        });
+        //@ts-ignore
+        message.reply({ embeds: [embedUser] });
+      }
   }
 });
 
