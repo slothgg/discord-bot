@@ -19,7 +19,6 @@ async function bootStrap() {
   });
 
   app.on('messageCreate', async (message) => {
-    console.log(typeof message);
     const content = message.content;
     const target = content.split(' ');
     switch (target[0]) {
