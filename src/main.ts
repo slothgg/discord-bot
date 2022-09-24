@@ -2,17 +2,20 @@ import { Client, Intents } from 'discord.js';
 import { getUserByName } from './api/user';
 import { RatingColorConverter } from './utils/converter/rating-color.converter';
 import EmbedUser from './common/embedded/user/embed-user';
+import DiscordFactory from './common/core';
 
 async function bootStrap() {
-  const app = new Client({
-    intents: [
+  const app = new DiscordFactory(
+    [
       Intents.FLAGS.GUILDS,
       Intents.FLAGS.GUILD_MESSAGES,
       Intents.FLAGS.GUILD_INTEGRATIONS,
       Intents.FLAGS.DIRECT_MESSAGES,
     ],
-    partials: ['MESSAGE', 'CHANNEL'],
-  });
+    ['MESSAGE', 'CHANNEL'],
+  );
+
+  app.init();
 
   app.once('ready', () => {
     console.log(`Logged in as ${app.user.tag}!`);
@@ -89,10 +92,6 @@ async function bootStrap() {
           message.reply({ embeds: [embedUser] });
         }
     }
-  });
-
-  app.login(process.env.TOKEN).then(() => {
-    console.log('연결되었습니다.');
   });
 }
 
