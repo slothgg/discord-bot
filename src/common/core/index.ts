@@ -1,10 +1,15 @@
-import { Client, Intents, PartialTypes } from 'discord.js';
+import { Client, PartialTypes } from 'discord.js';
 import { Logger } from '../logger';
+import { Util } from '../util';
+import { Command } from '../util/command/type';
 
 export default class DiscordFactory extends Client {
   public logger = new Logger();
 
-  constructor(intents: Intents[], partials: PartialTypes[]) {
+  public readonly util: Util;
+  public commands = <Command[]>[];
+
+  constructor(intents: any[], partials: PartialTypes[]) {
     super({
       intents,
       partials,
@@ -13,6 +18,9 @@ export default class DiscordFactory extends Client {
 
   public async init() {
     this.logger.log('Initializing...');
+
+    // await this.util.loadCommands();
+
     this.logger.log('Initialize Done');
 
     await this.login(process.env.TOKEN)
