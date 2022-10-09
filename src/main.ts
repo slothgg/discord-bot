@@ -1,4 +1,4 @@
-import { Client, Intents } from 'discord.js';
+import { Intents } from 'discord.js';
 import { getUserByName } from './api/user';
 import { RatingColorConverter } from './utils/converter/rating-color.converter';
 import EmbedUser from './common/embedded/user/embed-user';
