@@ -35,8 +35,8 @@ export interface GetUserResponse {
       winRate: string;
       battleCount: number;
     };
-    compareWN8: string;
-    compareWinRate: string;
-    compareBattleCount: string;
+    compareWN8?: string;
+    compareWinRate?: string;
+    compareBattleCount?: string;
   };
 }
