@@ -18,10 +18,6 @@ async function bootStrap() {
 
   app.init();
 
-  app.once('ready', () => {
-    console.log(`Logged in as ${app.user.tag}!`);
-  });
-
   app.on('messageCreate', async (message) => {
     const content = message.content;
     const target = content.split(' ');

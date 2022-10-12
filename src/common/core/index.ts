@@ -15,5 +15,9 @@ export default class DiscordFactory extends Client {
     await this.login(process.env.TOKEN)
       .then(() => this.logger.log('Connected to Discord Server'))
       .catch((err) => this.logger.error(err.message));
+
+    this.once('ready', () => {
+      console.log(`Logged in as ${this.user.tag}!`);
+    });
   }
 }
