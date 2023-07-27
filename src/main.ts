@@ -30,7 +30,7 @@ async function bootStrap() {
         );
 
         if (valid !== null) {
-          message.reply('입력 가능한 닉네임이 아닙니다.');
+          await message.reply('입력 가능한 닉네임이 아닙니다.');
         } else {
           let result: GetUserResponse;
 
@@ -105,7 +105,7 @@ async function bootStrap() {
               icon_url: 'https://i.imgur.com/FHzy32w.png',
             });
             //@ts-ignore
-            message.reply({ embeds: [embedUser] });
+            await message.reply({embeds: [embedUser]});
           }
         }
     }
