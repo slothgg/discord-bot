@@ -1,21 +1,22 @@
-# Discord Starter
+# GeNimRe Discord Bot
 
-### Discord Starter with Docker
+## Description
+ `그래서 님 레이팅(aka. 그님레)` 디스코드 봇 서버입니다 
 
-## How to Start
-
-    ./setup.sh
-
-## After setup project directory
+## How to run
 
 ### If node version under 16 or use docker
 
-    docker run -t [image-name]
+```bash
+$ docker run -t [image-name]
+```
 
 ### If node version over 16
 
-    npm i
-    npm run start:dev
+```bash
+$ npm i
+$ npm run start:dev
+```
 
 ## To Add / Command
 
