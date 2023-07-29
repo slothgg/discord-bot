@@ -45,12 +45,12 @@ async function bootStrap() {
           if (result) {
             const ratingColorConverter = new RatingColorConverter();
             const wn8Color: any = await ratingColorConverter.getColorOfWN8(
-              result.rating.rating.wn8,
+              result.rating.data.wn8,
             );
 
             const embedUser = new EmbedUser();
 
-            embedUser.setColor(result.rating.rating.wn8 ? wn8Color : 0x0099ff);
+            embedUser.setColor(result.rating.data.wn8 ? wn8Color : 0x0099ff);
             embedUser.setTitle(
               `${result.user.username} [${result.clan.clanTag}] 레이팅`,
             );
@@ -68,7 +68,7 @@ async function bootStrap() {
             embedUser.setFields([
               {
                 name: 'WN8',
-                value: `${result.rating.rating.wn8}
+                value: `${result.rating.data.wn8}
                     ( ${
                       result.rating.compareWN8 ? result.rating.compareWN8 : 0
                     } ) `,
@@ -76,7 +76,7 @@ async function bootStrap() {
               },
               {
                 name: '판 수',
-                value: `${result.rating.rating.battleCount.toString()}
+                value: `${result.rating.data.battleCount.toString()}
                      ( ${
                        result.rating.compareBattleCount
                          ? result.rating.compareBattleCount
@@ -86,7 +86,7 @@ async function bootStrap() {
               },
               {
                 name: '승률',
-                value: `${result.rating.rating.winRate}
+                value: `${result.rating.data.winRate}
                      ( ${
                        result.rating.compareWinRate
                          ? result.rating.compareWinRate

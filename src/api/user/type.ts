@@ -3,9 +3,6 @@ import { Role } from './enum';
 export interface GetUserResponse {
   user: {
     id: number;
-    createdAt: string;
-    updatedAt: string;
-    userWarId: string;
     username: string;
     role: Role;
     clanWarId: number;
@@ -13,8 +10,6 @@ export interface GetUserResponse {
   };
   clan?: {
     id: number;
-    createdAt: string;
-    updatedAt: string;
     clanId: number;
     clanTag: string;
     clanName: string;
@@ -26,7 +21,7 @@ export interface GetUserResponse {
     emblemUrl: string;
   };
   rating: {
-    rating: {
+    data: {
       id: number;
       createdAt: string;
       updatedAt: string;
