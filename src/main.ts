@@ -16,7 +16,7 @@ async function bootStrap() {
     ['MESSAGE', 'CHANNEL'],
   );
 
-  app.init();
+  await app.init();
 
   app.on('messageCreate', async (message) => {
     const content = message.content;
