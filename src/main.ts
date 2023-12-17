@@ -1,9 +1,9 @@
-import { Intents } from 'discord.js';
-import { getUserByName } from './api/user';
-import { RatingColorConverter } from './utils/converter/rating-color.converter';
+import {Intents} from 'discord.js';
+import {getUserByName} from './api/user';
+import {RatingColorConverter} from './utils/converter/rating-color.converter';
 import EmbedUser from './common/embedded/user/embed-user';
 import DiscordFactory from './common/core';
-import { GetUserResponse } from './api/user/type';
+import {GetUserResponse} from './api/user/type';
 
 async function bootStrap() {
   const app = new DiscordFactory(
@@ -54,7 +54,7 @@ async function bootStrap() {
             embedUser.setTitle(
               `${result.user.username} [${result.clan.clanTag}] 레이팅`,
             );
-            embedUser.setUrl(`https://tanks.gg/asia/${result.user.username}`);
+            embedUser.setUrl(`https://tomato.gg/stats/ASIA/${result.user.username}=${result.rating.data.userId}`);
             embedUser.setAuthor({
               name: 'Genimre-레이팅',
               icon_url: 'https://i.imgur.com/FHzy32w.png',
