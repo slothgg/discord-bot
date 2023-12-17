@@ -54,7 +54,7 @@ async function bootStrap() {
             embedUser.setTitle(
               `${result.user.username} [${result.clan.clanTag}] 레이팅`,
             );
-            embedUser.setUrl(`https://tomato.gg/stats/ASIA/${result.user.username}=${result.rating.data.userId}`);
+            embedUser.setUrl(`https://tomato.gg/stats/ASIA/${result.user.username}=${result.user.userWarId}`);
             embedUser.setAuthor({
               name: 'Genimre-레이팅',
               icon_url: 'https://i.imgur.com/FHzy32w.png',

@@ -1,10 +1,11 @@
-import { Role } from './enum';
+import {Role} from './enum';
 
 export interface GetUserResponse {
   user: {
     id: number;
     username: string;
     role: Role;
+    userWarId: number;
     clanWarId: number;
     clanId: number;
   };
