@@ -7,7 +7,7 @@ export async function getUserByName(
 ): Promise<GetUserResponse> {
     const {data} = await api.get<GetUserResponse>(
         PATHS.getUserByName(username),
-        {headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}}
+        // {headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}}
     );
 
     return data;

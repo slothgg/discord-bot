@@ -1,3 +1,3 @@
 export const PATHS = {
-  getUserByName: (username: string) => `users/${username}`,
+  getUserByName: (username: string) => `/users/${username}`,
 };
