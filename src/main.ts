@@ -52,7 +52,7 @@ async function bootStrap() {
 
             embedUser.setColor(result.rating.data.wn8 ? wn8Color : 0x0099ff);
             embedUser.setTitle(
-              `${result.user.username} [${result.clan.clanTag}] 레이팅`,
+              `${result.user.username} ${result.clan && `[${result.clan.clanTag}]`} 레이팅`,
             );
             embedUser.setUrl(`https://tomato.gg/stats/ASIA/${result.user.username}=${result.user.userWarId}`);
             embedUser.setAuthor({
@@ -60,9 +60,9 @@ async function bootStrap() {
               icon_url: 'https://i.imgur.com/FHzy32w.png',
             });
             embedUser.setDescription(
-              `≫ ${result.user.username} [${result.clan.clanTag}] ≪ 유저의 레이팅입니다.`,
+              `≫ ${result.user.username} ${result.clan && `[${result.clan.clanTag}]`} ≪ 유저의 레이팅입니다.`,
             );
-            embedUser.setThumbnail({
+            result.clan && embedUser.setThumbnail({
               url: `${result.clan.emblemUrl}`,
             });
             embedUser.setFields([
@@ -93,11 +93,13 @@ async function bootStrap() {
                          : 0
                      } )`,
                 inline: true,
-              },
-              {
-                name: `소속 클랜 ${result.clan.clanName} [${result.clan.clanTag}]`,
-                value: result.clan.description,
-              },
+              }
+            ]);
+            result.clan && embedUser.setFields([
+                {
+                  name: `소속 클랜 ${result.clan.clanName} [${result.clan.clanTag}]`,
+                  value: result.clan.description,
+                }
             ]);
             embedUser.setTimeStamp(new Date());
             embedUser.setFooter({
