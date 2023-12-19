@@ -51,11 +51,15 @@ async function bootStrap() {
             const embedUser = new EmbedUser();
 
             embedUser.setColor(result.rating.data.wn8 ? wn8Color : 0x0099ff);
-            embedUser.setTitle(
-              `${result.user.username} ${
-                result.clan && `[${result.clan.clanTag}]`
-              } 레이팅`,
-            );
+
+            result.clan
+              ? embedUser.setTitle(
+                  `${result.user.username} ${
+                    result.clan && `[${result.clan.clanTag}]`
+                  } 레이팅`,
+                )
+              : embedUser.setTitle(`${result.user.username} 레이팅`);
+
             embedUser.setUrl(
               `https://tomato.gg/stats/ASIA/${result.user.username}=${result.user.userWarId}`,
             );
