@@ -67,11 +67,15 @@ async function bootStrap() {
               name: 'Genimre-레이팅',
               icon_url: 'https://i.imgur.com/FHzy32w.png',
             });
-            embedUser.setDescription(
-              `≫ ${result.user.username} ${
-                result.clan && `[${result.clan.clanTag}]`
-              } ≪ 유저의 레이팅입니다.`,
-            );
+
+            result.clan
+              ? embedUser.setDescription(
+                  `≫ ${result.user.username} [${result.clan.clanTag}] ≪ 유저의 레이팅입니다.`,
+                )
+              : embedUser.setDescription(
+                  `≫ ${result.user.username} ≪ 유저의 레이팅입니다.`,
+                );
+
             result.clan &&
               embedUser.setThumbnail({
                 url: `${result.clan.emblemUrl}`,
