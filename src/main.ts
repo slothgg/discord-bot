@@ -1,9 +1,9 @@
-import {Intents} from 'discord.js';
-import {getUserByName} from './api/user';
-import {RatingColorConverter} from './utils/converter/rating-color.converter';
+import { Intents } from 'discord.js';
+import { getUserByName } from './api/user';
+import { RatingColorConverter } from './utils/converter/rating-color.converter';
 import EmbedUser from './common/embedded/user/embed-user';
 import DiscordFactory from './common/core';
-import {GetUserResponse} from './api/user/type';
+import { GetUserResponse } from './api/user/type';
 
 async function bootStrap() {
   const app = new DiscordFactory(
@@ -52,62 +52,99 @@ async function bootStrap() {
 
             embedUser.setColor(result.rating.data.wn8 ? wn8Color : 0x0099ff);
             embedUser.setTitle(
-              `${result.user.username} ${result.clan && `[${result.clan.clanTag}]`} 레이팅`,
+              `${result.user.username} ${
+                result.clan && `[${result.clan.clanTag}]`
+              } 레이팅`,
             );
-            embedUser.setUrl(`https://tomato.gg/stats/ASIA/${result.user.username}=${result.user.userWarId}`);
+            embedUser.setUrl(
+              `https://tomato.gg/stats/ASIA/${result.user.username}=${result.user.userWarId}`,
+            );
             embedUser.setAuthor({
               name: 'Genimre-레이팅',
               icon_url: 'https://i.imgur.com/FHzy32w.png',
             });
             embedUser.setDescription(
-              `≫ ${result.user.username} ${result.clan && `[${result.clan.clanTag}]`} ≪ 유저의 레이팅입니다.`,
+              `≫ ${result.user.username} ${
+                result.clan && `[${result.clan.clanTag}]`
+              } ≪ 유저의 레이팅입니다.`,
             );
-            result.clan && embedUser.setThumbnail({
-              url: `${result.clan.emblemUrl}`,
-            });
-            embedUser.setFields([
-              {
-                name: 'WN8',
-                value: `${result.rating.data.wn8}
+            result.clan &&
+              embedUser.setThumbnail({
+                url: `${result.clan.emblemUrl}`,
+              });
+
+            result.clan
+              ? embedUser.setFields([
+                  {
+                    name: 'WN8',
+                    value: `${result.rating.data.wn8}
                     ( ${
                       result.rating.compareWN8 ? result.rating.compareWN8 : 0
                     } ) `,
-                inline: true,
-              },
-              {
-                name: '판 수',
-                value: `${result.rating.data.battleCount.toString()}
+                    inline: true,
+                  },
+                  {
+                    name: '판 수',
+                    value: `${result.rating.data.battleCount.toString()}
                      ( ${
                        result.rating.compareBattleCount
                          ? result.rating.compareBattleCount
                          : 0
                      } )`,
-                inline: true,
-              },
-              {
-                name: '승률',
-                value: `${result.rating.data.winRate}
+                    inline: true,
+                  },
+                  {
+                    name: '승률',
+                    value: `${result.rating.data.winRate}
                      ( ${
                        result.rating.compareWinRate
                          ? result.rating.compareWinRate
                          : 0
                      } )`,
-                inline: true,
-              }
-            ]);
-            result.clan && embedUser.setFields([
-                {
-                  name: `소속 클랜 ${result.clan.clanName} [${result.clan.clanTag}]`,
-                  value: result.clan.description,
-                }
-            ]);
+                    inline: true,
+                  },
+                  {
+                    name: `소속 클랜 ${result.clan.clanName} [${result.clan.clanTag}]`,
+                    value: result.clan.description,
+                  },
+                ])
+              : embedUser.setFields([
+                  {
+                    name: 'WN8',
+                    value: `${result.rating.data.wn8}
+                    ( ${
+                      result.rating.compareWN8 ? result.rating.compareWN8 : 0
+                    } ) `,
+                    inline: true,
+                  },
+                  {
+                    name: '판 수',
+                    value: `${result.rating.data.battleCount.toString()}
+                     ( ${
+                       result.rating.compareBattleCount
+                         ? result.rating.compareBattleCount
+                         : 0
+                     } )`,
+                    inline: true,
+                  },
+                  {
+                    name: '승률',
+                    value: `${result.rating.data.winRate}
+                     ( ${
+                       result.rating.compareWinRate
+                         ? result.rating.compareWinRate
+                         : 0
+                     } )`,
+                    inline: true,
+                  },
+                ]);
             embedUser.setTimeStamp(new Date());
             embedUser.setFooter({
               text: 'Genimre-레이팅',
               icon_url: 'https://i.imgur.com/FHzy32w.png',
             });
             //@ts-ignore
-            await message.reply({embeds: [embedUser]});
+            await message.reply({ embeds: [embedUser] });
           }
         }
     }
