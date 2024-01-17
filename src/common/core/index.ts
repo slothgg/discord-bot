@@ -1,24 +1,24 @@
-import {Client, PartialTypes} from 'discord.js';
-import {Logger} from '../logger';
+import { Client, PartialTypes } from 'discord.js';
+import { Logger } from '../logger';
 
 export default class DiscordFactory extends Client {
-    public logger = new Logger();
+  public logger = new Logger();
 
-    constructor(intents: any[], partials: PartialTypes[]) {
-        super({
-            intents,
-            partials,
-        });
-    }
+  constructor(intents: any[], partials: PartialTypes[]) {
+    super({
+      intents,
+      partials,
+    });
+  }
 
-    public async init() {
-        await this.login(process.env.TOKEN)
-            .then(() => this.logger.log('Connected to Discord Server'))
-            .catch((err) => this.logger.error(err.message));
+  public async init() {
+    await this.login(process.env.TOKEN)
+      .then(() => this.logger.log('Connected to Discord Server'))
+      .catch((err) => this.logger.error(err.message));
 
-        this.once('ready', () => {
-            console.log(`Logged in as ${this.user.tag}!`);
-            //TODO: 로그인 api 호출 후 로컬 스토리지에 등록
-        });
-    }
+    this.once('ready', () => {
+      console.log(`Logged in as ${this.user.tag}!`);
+      //TODO: 로그인 api 호출 후 로컬 스토리지에 등록
+    });
+  }
 }
