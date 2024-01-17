@@ -36,3 +36,17 @@ export interface GetRecentStatsResponse {
     recent1000battles: RecentStats;
   };
 }
+
+export class StatsData {
+  rating: Rating;
+  compareWN8?: string;
+  compareWinRate?: string;
+  compareBattleCount?: string;
+
+  set(data: GetStatsResponse) {
+    this.rating = data.rating;
+    this.compareWN8 = data.compareWN8;
+    this.compareWinRate = data.compareWinRate;
+    this.compareBattleCount = data.compareBattleCount;
+  }
+}
