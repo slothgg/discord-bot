@@ -1,3 +1,3 @@
 export const PATHS = {
-  getClanById: (id: number) => `/clans/${id}`,
+  getClanByClanWarId: (id: number) => `/clans/${id}`,
 };
