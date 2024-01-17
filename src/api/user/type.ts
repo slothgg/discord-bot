@@ -1,26 +1,12 @@
-import {Role} from './enum';
+import { Role } from './enum';
 
 export interface GetUserResponse {
-  user: {
-    id: number;
-    username: string;
-    role: Role;
-    userWarId: number;
-    clanWarId: number;
-    clanId: number;
-  };
-  clan?: {
-    id: number;
-    clanId: number;
-    clanTag: string;
-    clanName: string;
-    color: string;
-    memberCount: number;
-    motto: string;
-    leader: string;
-    description: string;
-    emblemUrl: string;
-  };
+  id: number;
+  username: string;
+  role: Role;
+  userWarId: number;
+  clanWarId: number;
+  clanId: number;
   rating: {
     data: {
       id: number;
@@ -35,4 +21,22 @@ export interface GetUserResponse {
     compareWinRate?: string;
     compareBattleCount?: string;
   };
+}
+
+export class UserData {
+  id: number;
+  username: string;
+  role: Role;
+  userWarId: number;
+  clanWarId: number;
+  clanId: number;
+
+  set(user: GetUserResponse) {
+    this.id = user.id;
+    this.username = user.username;
+    this.role = user.role;
+    this.userWarId = user.userWarId;
+    this.clanWarId = user.clanWarId;
+    this.clanId = user.clanId;
+  }
 }
