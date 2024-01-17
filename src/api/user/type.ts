@@ -7,20 +7,12 @@ export interface GetUserResponse {
   userWarId: number;
   clanWarId: number;
   clanId: number;
-  rating: {
-    data: {
-      id: number;
-      createdAt: string;
-      updatedAt: string;
-      userId: number;
-      wn8: string;
-      winRate: string;
-      battleCount: number;
-    };
-    compareWN8?: string;
-    compareWinRate?: string;
-    compareBattleCount?: string;
-  };
+}
+
+export interface GetRecentStatsUserData {
+  username: string;
+  userWarId: number;
+  clanWarId: number;
 }
 
 export class UserData {
@@ -31,12 +23,12 @@ export class UserData {
   clanWarId: number;
   clanId: number;
 
-  set(user: GetUserResponse) {
-    this.id = user.id;
-    this.username = user.username;
-    this.role = user.role;
-    this.userWarId = user.userWarId;
-    this.clanWarId = user.clanWarId;
-    this.clanId = user.clanId;
+  set(data: GetUserResponse) {
+    this.id = data.id;
+    this.username = data.username;
+    this.role = data.role;
+    this.userWarId = data.userWarId;
+    this.clanWarId = data.clanWarId;
+    this.clanId = data.clanId;
   }
 }
