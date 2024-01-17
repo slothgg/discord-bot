@@ -23,7 +23,7 @@ export class UserData {
   clanWarId: number;
   clanId: number;
 
-  set(data: GetUserResponse) {
+  async setData(data: GetUserResponse) {
     this.id = data.id;
     this.username = data.username;
     this.role = data.role;

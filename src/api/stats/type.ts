@@ -43,7 +43,7 @@ export class StatsData {
   compareWinRate?: string;
   compareBattleCount?: string;
 
-  set(data: GetStatsResponse) {
+  async setData(data: GetStatsResponse) {
     this.rating = data.rating;
     this.compareWN8 = data.compareWN8;
     this.compareWinRate = data.compareWinRate;
