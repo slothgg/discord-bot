@@ -79,71 +79,46 @@ export class RatingMessage {
         url: `${this.clanData.emblemUrl}`,
       });
 
-    this.clanData
-      ? embedUser.setFields([
-          {
-            name: 'WN8',
-            value: `${this.statsData.rating.wn8}
+    const commonFields = [
+      {
+        name: 'WN8',
+        value: `${this.statsData.rating.wn8}
                     ( ${
                       this.statsData.compareWN8 ? this.statsData.compareWN8 : 0
                     } ) `,
-            inline: true,
-          },
-          {
-            name: '판 수',
-            value: `${this.statsData.rating.battleCount.toString()}
+        inline: true,
+      },
+      {
+        name: '판 수',
+        value: `${this.statsData.rating.battleCount.toString()}
                      ( ${
                        this.statsData.compareBattleCount
                          ? this.statsData.compareBattleCount
                          : 0
                      } )`,
-            inline: true,
-          },
-          {
-            name: '승률',
-            value: `${this.statsData.rating.winRate}
-                     ( ${
-                       this.statsData.rating.winRate
-                         ? this.statsData.rating.winRate
-                         : 0
-                     } )`,
-            inline: true,
-          },
-          {
-            name: `소속 클랜 ${this.clanData.clanName} [${this.clanData.clanTag}]`,
-            value: this.clanData.description,
-          },
-        ])
-      : embedUser.setFields([
-          {
-            name: 'WN8',
-            value: `${this.statsData.rating.wn8}
-                    ( ${
-                      this.statsData.compareWN8 ? this.statsData.compareWN8 : 0
-                    } ) `,
-            inline: true,
-          },
-          {
-            name: '판 수',
-            value: `${this.statsData.rating.battleCount.toString()}
-                     ( ${
-                       this.statsData.compareBattleCount
-                         ? this.statsData.compareBattleCount
-                         : 0
-                     } )`,
-            inline: true,
-          },
-          {
-            name: '승률',
-            value: `${this.statsData.rating.winRate}
+        inline: true,
+      },
+      {
+        name: '승률',
+        value: `${this.statsData.rating.winRate}
                      ( ${
                        this.statsData.compareWinRate
                          ? this.statsData.compareWinRate
                          : 0
                      } )`,
-            inline: true,
+        inline: true,
+      },
+    ];
+
+    this.clanData
+      ? embedUser.setFields([
+          ...commonFields,
+          {
+            name: `소속 클랜 ${this.clanData.clanName} [${this.clanData.clanTag}]`,
+            value: this.clanData.description,
           },
-        ]);
+        ])
+      : embedUser.setFields(commonFields);
 
     embedUser.setTimeStamp(new Date());
     embedUser.setFooter({
