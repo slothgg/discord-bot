@@ -7,6 +7,7 @@ import { ClanData } from '../../api/clan/type';
 import EmbedUser from '../../common/embedded/user/embed-user';
 import { getStatsByUserWarId } from '../../api/stats';
 import { getClanByClanWarId } from '../../api/clan';
+import { MESSAGE } from './constant';
 
 export class RatingMessage {
   userData: UserData;
@@ -33,7 +34,7 @@ export class RatingMessage {
       const userResponse = await getUserByName(username);
       await this.userData.setData(userResponse);
     } catch (e) {
-      await this.message.reply('없는 닉네임입니다.');
+      await this.message.reply(MESSAGE.NICKNAME_NOT_FOUND);
     }
 
     const statsResponse = await getStatsByUserWarId(this.userData.userWarId);

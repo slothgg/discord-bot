@@ -1,7 +1,8 @@
 import { Intents } from 'discord.js';
 import DiscordFactory from './common/core';
-import { validInput } from './event/common/validator';
 import { RatingMessage } from './event/messages/rating.message';
+import { ValidMessage } from './event/messages/valid.message';
+import { MESSAGE } from './event/messages/constant';
 
 async function bootStrap() {
   const app = new DiscordFactory(
@@ -22,20 +23,16 @@ async function bootStrap() {
 
     switch (target[0]) {
       case '!레이팅':
-        const validInputData = validInput(content);
+        const validMessage = new ValidMessage(message);
+        await validMessage.replyInputInValidMessage(
+          content,
+          async (username: string) => {
+            await message.reply(MESSAGE.LOAD_RATING);
 
-        if (validInputData.valid !== null) {
-          await message.reply('입력 가능한 닉네임이 아닙니다.');
-        } else {
-          await message.reply(
-            '레이팅을 조회 중입니다.... 잠시만 기다려주세요.',
-          );
-
-          const ratingMessage = new RatingMessage(message);
-          await ratingMessage.replyDefaultRatingMessage(
-            validInputData.username,
-          );
-        }
+            const ratingMessage = new RatingMessage(message);
+            await ratingMessage.replyDefaultRatingMessage(username);
+          },
+        );
     }
   });
 }
