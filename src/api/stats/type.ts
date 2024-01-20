@@ -50,3 +50,16 @@ export class StatsData {
     this.compareBattleCount = data.compareBattleCount;
   }
 }
+
+export class RecentStatsData {
+  recent1000Stats: RecentStats;
+  recent24hrStats: RecentStats;
+
+  async setThousandData(data: GetRecentStatsResponse) {
+    this.recent1000Stats = data.rating.recent1000battles;
+  }
+
+  async setTwentyFourHourData(data: GetRecentStatsResponse) {
+    this.recent24hrStats = data.rating.recent24hr;
+  }
+}
