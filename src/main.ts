@@ -21,9 +21,10 @@ async function bootStrap() {
     const content = message.content;
     const target = content.split(' ');
 
+    const validMessage = new ValidMessage(message);
+
     switch (target[0]) {
       case '!레이팅':
-        const validMessage = new ValidMessage(message);
         await validMessage.replyInputInValidMessage(
           content,
           async (username: string) => {
@@ -33,6 +34,19 @@ async function bootStrap() {
             await ratingMessage.replyDefaultRatingMessage(username);
           },
         );
+        break;
+
+      case '!라천배':
+        await validMessage.replyInputInValidMessage(
+          content,
+          async (username: string) => {
+            await message.reply(MESSAGE.LOAD_RATING);
+
+            const ratingMessage = new RatingMessage(message);
+            await ratingMessage.replyRecentRatingMessage(username);
+          },
+        );
+        break;
     }
   });
 }
