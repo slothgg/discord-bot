@@ -43,10 +43,25 @@ async function bootStrap() {
             await message.reply(MESSAGE.LOAD_RATING);
 
             const ratingMessage = new RatingMessage(message);
-            await ratingMessage.replyRecentRatingMessage(username);
+            await ratingMessage.replyRecentRatingMessage(username, {
+              keyword: 'recent1000',
+            });
           },
         );
         break;
+
+      case '!24':
+        await validMessage.replyInputInValidMessage(
+          content,
+          async (username: string) => {
+            await message.reply(MESSAGE.LOAD_RATING);
+
+            const ratingMessage = new RatingMessage(message);
+            await ratingMessage.replyRecentRatingMessage(username, {
+              keyword: 'recent24hr',
+            });
+          },
+        );
     }
   });
 }
