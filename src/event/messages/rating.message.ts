@@ -20,6 +20,8 @@ export class RatingMessage {
 
   ratingColorConverter: RatingColorConverter;
 
+  title: string;
+
   constructor(private readonly message: Message) {
     this.userData = new UserData();
     this.clanData = new ClanData();
@@ -27,6 +29,8 @@ export class RatingMessage {
     this.recentStatsData = new RecentStatsData();
 
     this.ratingColorConverter = new RatingColorConverter();
+
+    this.title = '';
   }
 
   /**
@@ -132,33 +136,41 @@ export class RatingMessage {
    * 최근 1000판 레이팅 조회 결과 메세지 발송
    *
    * @param username string
+   * @param options { keyword: string }
    */
-  async replyRecentRatingMessage(username: string): Promise<void> {
+  async replyRecentRatingMessage(
+    username: string,
+    options: { keyword: string },
+  ): Promise<void> {
     await this.getUserResponseData(username);
     await this.getClanResponseData();
 
     const recentStatsResponse = await getRecentStatsByUserWarId(
       this.userData.userWarId,
     );
-    await this.recentStatsData.setThousandData(recentStatsResponse);
 
-    const wn8Color: any = await this.ratingColorConverter.getColorOfWN8(
-      this.recentStatsData.recent1000Stats.wn8.toString(),
-    );
+    switch (options?.keyword) {
+      case 'recent1000':
+        await this.recentStatsData.setThousandData(recentStatsResponse);
+        this.title = 'Last 1000판 레이팅';
+        break;
+      case 'recent24hr':
+        await this.recentStatsData.setTwentyFourHourData(recentStatsResponse);
+        this.title = '최근 24시간 레이팅';
+        break;
+    }
 
     const embedUser = new EmbedUser();
 
-    embedUser.setColor(
-      this.recentStatsData.recent1000Stats.wn8 ? wn8Color : 0x0099ff,
-    );
+    await this.setRecentStatsData(embedUser, options.keyword);
 
     this.clanData
       ? embedUser.setTitle(
           `${this.userData.username} ${
             this.clanData && `[${this.clanData.clanTag}]`
-          } Last 1000판 레이팅`,
+          } ${this.title}`,
         )
-      : embedUser.setTitle(`${this.userData.username} Last 1000판 레이팅`);
+      : embedUser.setTitle(`${this.userData.username} ${this.title}`);
 
     embedUser.setUrl(
       `https://tomato.gg/stats/ASIA/${this.userData.username}=${this.userData.userWarId}`,
@@ -170,44 +182,16 @@ export class RatingMessage {
 
     this.clanData
       ? embedUser.setDescription(
-          `≫ ${this.userData.username} [${this.clanData.clanTag}] ≪ 유저의 Last 1000판 레이팅입니다.`,
+          `≫ ${this.userData.username} [${this.clanData.clanTag}] ≪ 유저의 ${this.title}입니다.`,
         )
       : embedUser.setDescription(
-          `≫ ${this.userData.username} ≪ 유저의 Last 1000판 레이팅입니다.`,
+          `≫ ${this.userData.username} ≪ 유저의 ${this.title} 레이팅입니다.`,
         );
 
     this.clanData &&
       embedUser.setThumbnail({
         url: `${this.clanData.emblemUrl}`,
       });
-
-    const commonFields = [
-      {
-        name: 'WN8',
-        value: `${this.recentStatsData.recent1000Stats.wn8}`,
-        inline: true,
-      },
-      {
-        name: '판 수',
-        value: `${this.recentStatsData.recent1000Stats.battles}`,
-        inline: true,
-      },
-      {
-        name: '승률',
-        value: `${this.recentStatsData.recent1000Stats.winRate}`,
-        inline: true,
-      },
-    ];
-
-    this.clanData
-      ? embedUser.setFields([
-          ...commonFields,
-          {
-            name: `소속 클랜 ${this.clanData.clanName} [${this.clanData.clanTag}]`,
-            value: this.clanData.description,
-          },
-        ])
-      : embedUser.setFields(commonFields);
 
     embedUser.setTimeStamp(new Date());
     embedUser.setFooter({
@@ -216,6 +200,88 @@ export class RatingMessage {
     });
     //@ts-ignore
     await this.message.reply({ embeds: [embedUser] });
+  }
+
+  async setRecentStatsData(embedUser: EmbedUser, type: string): Promise<void> {
+    let wn8Color: any = '';
+    let commonFields: { name: string; value: string; inline: boolean }[] = [];
+
+    switch (type) {
+      case 'recent1000':
+        wn8Color = await this.ratingColorConverter.getColorOfWN8(
+          this.recentStatsData.recent1000Stats.wn8.toString(),
+        );
+
+        embedUser.setColor(
+          this.recentStatsData.recent1000Stats.wn8 ? wn8Color : 0x0099ff,
+        );
+
+        commonFields = [
+          {
+            name: 'WN8',
+            value: `${this.recentStatsData.recent1000Stats.wn8}`,
+            inline: true,
+          },
+          {
+            name: '판 수',
+            value: `${this.recentStatsData.recent1000Stats.battles}`,
+            inline: true,
+          },
+          {
+            name: '승률',
+            value: `${this.recentStatsData.recent1000Stats.winRate}`,
+            inline: true,
+          },
+        ];
+
+        this.clanData
+          ? embedUser.setFields([
+              ...commonFields,
+              {
+                name: `소속 클랜 ${this.clanData.clanName} [${this.clanData.clanTag}]`,
+                value: this.clanData.description,
+              },
+            ])
+          : embedUser.setFields(commonFields);
+        break;
+      case 'recent24hr':
+        wn8Color = await this.ratingColorConverter.getColorOfWN8(
+          this.recentStatsData.recent24hrStats.wn8.toString(),
+        );
+
+        embedUser.setColor(
+          this.recentStatsData.recent24hrStats.wn8 ? wn8Color : 0x0099ff,
+        );
+
+        commonFields = [
+          {
+            name: 'WN8',
+            value: `${this.recentStatsData.recent24hrStats.wn8}`,
+            inline: true,
+          },
+          {
+            name: '판 수',
+            value: `${this.recentStatsData.recent24hrStats.battles}`,
+            inline: true,
+          },
+          {
+            name: '승률',
+            value: `${this.recentStatsData.recent24hrStats.winRate}`,
+            inline: true,
+          },
+        ];
+
+        this.clanData
+          ? embedUser.setFields([
+              ...commonFields,
+              {
+                name: `소속 클랜 ${this.clanData.clanName} [${this.clanData.clanTag}]`,
+                value: this.clanData.description,
+              },
+            ])
+          : embedUser.setFields(commonFields);
+        break;
+    }
   }
 
   /**
