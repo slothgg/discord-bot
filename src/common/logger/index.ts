@@ -3,8 +3,8 @@ import * as winston from 'winston';
 import { LogLevel } from './enum';
 
 export class Logger {
-  private logDir: string;
-  private logFormat: winston.Logform.Format;
+  private readonly logDir: string;
+  private readonly logFormat: winston.Logform.Format;
   private logger: winston.Logger;
 
   constructor() {

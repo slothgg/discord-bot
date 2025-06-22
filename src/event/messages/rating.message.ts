@@ -1,15 +1,13 @@
 import { Message } from 'discord.js';
-import { RatingColorConverter } from '../../utils/converter/rating-color.converter';
-import { getUserByName } from '../../api/user';
-import { UserData } from '../../api/user/type';
-import { RecentStatsData, StatsData } from '../../api/stats/type';
-import { ClanData } from '../../api/clan/type';
-import EmbedUser from '../../common/embedded/user/embed-user';
-import {
-  getRecentStatsByUserWarId,
-  getStatsByUserWarId,
-} from '../../api/stats';
-import { getClanByClanWarId } from '../../api/clan';
+
+import { RatingColorConverter } from '@/utils/converter/rating-color.converter';
+import { getUserByName } from '@/api/user';
+import { UserData } from '@/api/user/type';
+import { RecentStatsData, StatsData } from '@/api/stats/type';
+import { ClanData } from '@/api/clan/type';
+import { getRecentStatsByUserWarId, getStatsByUserWarId } from '@/api/stats';
+import { getClanByClanWarId } from '@/api/clan';
+import EmbedUser from '@/common/embedded/user/embed-user';
 import { MESSAGE } from './constant';
 
 export class RatingMessage {

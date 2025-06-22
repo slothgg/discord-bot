@@ -1,4 +1,4 @@
-import { api } from '../../utils/axios';
+import { api } from '@/utils/axios';
 import { GetRecentStatsResponse, GetStatsResponse } from './type';
 import { PATHS } from './path';
 

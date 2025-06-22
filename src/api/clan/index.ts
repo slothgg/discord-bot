@@ -1,4 +1,4 @@
-import { api } from '../../utils/axios';
+import { api } from '@/utils/axios';
 import { GetClanResponse } from './type';
 import { PATHS } from './path';
 

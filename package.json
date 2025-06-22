@@ -2,16 +2,16 @@
   "name": "genimre-bot",
   "version": "0.0.1",
   "description": "그님레 봇 with TypeScript",
-  "main": "index.ts",
+  "main": "main.ts",
   "scripts": {
-    "start:dev": "NODE_ENV=proudction ts-node-dev --respawn --transpile-only ./src/main.ts",
+    "start:dev": "NODE_ENV=development ts-node-dev --respawn --transpile-only -r tsconfig-paths/register src/main.ts",
     "start:build": "NODE_ENV=proudction node dist/main.js",
     "start": "NODE_ENV=production ts-node src/main.ts",
     "prebuild": "rimraf dist",
     "build": "./node_modules/.bin/tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "madoht",
+  "author": "HyunTaek5",
   "license": "MIT",
   "dependencies": {
     "@discordjs/builders": "^0.12.0",
@@ -24,6 +24,7 @@
     "lodash": "^4.17.21",
     "moment": "2.29.4",
     "ts-node-dev": "^2.0.0",
+    "tsconfig-paths": "^4.2.0",
     "winston": "^3.8.2"
   },
   "devDependencies": {
