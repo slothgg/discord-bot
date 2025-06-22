@@ -1,7 +1,7 @@
-# GeNimRe Discord Bot
+# Sloth.gg Discord Bot
 
 ## Description
- `그래서 님 레이팅(aka. 그님레)` 디스코드 봇 서버입니다 
+ `전)그래서 님 레이팅(aka. 그님레) | 현)sloth.gg`  디스코드 봇 서버입니다 
 
 ## How to run
 
